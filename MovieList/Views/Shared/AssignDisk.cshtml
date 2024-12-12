@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MovieList.Models.Disk>
+    @{
+    var borrower = ViewBag.Borrower as MovieList.Models.Borrower;
+    }
+
+    <h2>Assign Disk to @borrower.FName @borrower.LName</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Disk ID</th>
+                <th>Name</th>
+                <th>Release Date</th>
+                <th>Genre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var disk in Model)
+            {
+            <tr>
+                <td>@disk.DiskId</td>
+                <td>@disk.DiskName</td>
+                <td>@disk.ReleaseDate.ToString("yyyy-MM-dd")</td>
+                <td>@disk.Genre?.Description</td>
+                <td>
+                    <form asp-action="ConfirmBorrow" asp-controller="Disk" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="borrowerId" value="@borrower.BorrowerId" />
+                        <input type="hidden" name="diskId" value="@disk.DiskId" />
+                        <button type="submit" class="btn btn-primary">Borrow</button>
+                    </form>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>

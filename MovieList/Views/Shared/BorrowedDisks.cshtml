@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MovieList.Models.BorrowedDiskViewModel>
+
+@{
+    ViewBag.Title = "Borrowed Disks";
+}
+
+<h2>Borrowed Disks</h2>
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Disk Name</th>
+                <th>Borrowed Date</th>
+                <th>Due Date</th>
+                <th>Borrower</th> <!-- Optional -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var disk in Model)
+            {
+                <tr>
+                    <td>@disk.DiskName</td>
+                    <td>@disk.BorrowedDate.ToString("yyyy-MM-dd")</td>
+                    <td>@disk.DueDate.ToString("yyyy-MM-dd")</td>
+                    <td>@disk.BorrowerName</td> <!-- Optional -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No disks are currently borrowed.</p>
+}

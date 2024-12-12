@@ -1,0 +1,62 @@
+﻿@model MovieList.Models.Disk
+
+@{
+    ViewBag.Title = "Create Disk";
+}
+
+<h2>Create New Disk</h2>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <!-- Disk Name -->
+    <div class="form-group">
+        <label asp-for="DiskName">Name</label>
+        <input asp-for="DiskName" class="form-control" />
+        <span asp-validation-for="DiskName" class="text-danger"></span>
+    </div>
+
+    <!-- Release Date -->
+    <div class="form-group">
+        <label asp-for="ReleaseDate">Release Date</label>
+        <input asp-for="ReleaseDate" type="date" class="form-control" />
+        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+    </div>
+
+    <!-- Genre Dropdown -->
+    <div class="form-group">
+        <label asp-for="GenreId">Genre</label>
+        <select asp-for="GenreId" class="form-control">
+            <option value="">Select a genre</option>
+            @foreach (var genre in ViewBag.Genres)
+            {
+                <option value="@genre.GenreId">@genre.Description</option>
+            }
+        </select>
+        <span asp-validation-for="GenreId" class="text-danger"></span>
+    </div>
+
+    <!-- Status Dropdown -->
+    <div class="form-group">
+        <label asp-for="StatusId">Status</label>
+        <select asp-for="StatusId" class="form-control">
+            <option value="1">Available</option>
+            <option value="2">Checked Out</option>
+        </select>
+        <span asp-validation-for="StatusId" class="text-danger"></span>
+    </div>
+
+    <!-- Disk Type Dropdown -->
+    <div class="form-group">
+        <label asp-for="DiskTypeId">Disk Type</label>
+        <select asp-for="DiskTypeId" class="form-control">
+            <option value="1">Album</option>
+            <option value="2"> Single</option>
+        </select><span asp-validation-for="DiskTypeId" class="text-danger"></span>
+    </div>
+    <!-- Submit and Cancel Buttons -->
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

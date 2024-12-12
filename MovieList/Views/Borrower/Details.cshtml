@@ -1,0 +1,93 @@
+﻿@model MovieList.Models.Borrower
+
+@{
+    ViewBag.Title = "Borrower Details";
+}
+
+<h2>Borrower Details</h2>
+
+<!-- Borrower Details -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h3>@Model.FName @Model.LName</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>Borrower ID:</strong> @Model.BorrowerId</p>
+        <p><strong>Phone Number:</strong> @Model.PhoneNum</p>
+    </div>
+</div>
+
+<!-- Borrowed Books/Disks -->
+<h3>Borrowed Books/Disks</h3>
+@if (Model.DiskHasBorrowers != null && Model.DiskHasBorrowers.Any())
+{
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Disk Name</th>
+            <th>Borrowed Date</th>
+            <th>Due Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var borrowed in Model.DiskHasBorrowers)
+            {
+        <tr>
+            <td>@borrowed.Disk?.DiskName</td>
+            <td>@borrowed.BorrowedDate.ToString("yyyy-MM-dd")</td>
+            <td>@borrowed.DueDate.ToString("yyyy-MM-dd")</td>
+            <td>
+                <form asp-action="UnborrowDisk" method="post" style="display:inline;">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="diskId" value="@borrowed.DiskId" />
+                    <input type="hidden" name="borrowerId" value="@Model.BorrowerId" />
+                    <button type="submit" class="btn btn-danger btn-sm">Unborrow</button>
+                </form>
+            </td>
+        </tr>
+            }
+    </tbody>
+</table>
+}
+else
+{
+<p>This borrower has not borrowed any disks.</p>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+<div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<!-- Update Borrower Form -->
+<h3>Update Borrower</h3>
+<form asp-action="UpdateBorrower" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="BorrowerId" />
+
+    <div class="form-group">
+        <label asp-for="FName">First Name</label>
+        <input asp-for="FName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LName">Last Name</label>
+        <input asp-for="LName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNum">Phone Number</label>
+        <input asp-for="PhoneNum" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+<!-- Back Button -->
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to List</a>

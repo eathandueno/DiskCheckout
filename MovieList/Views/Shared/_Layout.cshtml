@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+\
+</head>
+<body>
+    <div class="container">
+        <header class="jumbotron">
+            <h1>Eathan's Disks</h1>
+            <h3>Welcome Feel Free to add your favorite disks!</h3>
+            <a asp-controller="Disk" asp-action="Create" class="btn btn-primary">Add New Disk</a>
+            <a asp-controller="Borrower" asp-action="Index" class="btn btn-primary">View Borrowers</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Disks</a>
+            <a asp-action="BorrowedDisks" asp-controller="Borrower" class="btn btn-primary">View Borrowed Disks</a>
+        </header>
+        @RenderBody()
+    </div>
+</body>
+</html>

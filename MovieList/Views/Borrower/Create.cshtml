@@ -1,0 +1,41 @@
+﻿@model Borrower
+
+@{
+    ViewBag.Title = "Create Borrower";
+}
+
+<h2>Create New Borrower</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="FName">First Name</label>
+        <input asp-for="FName" class="form-control"
+               required
+               maxlength="50"
+               title="First Name is required and must be less than 50 characters." />
+        <span asp-validation-for="FName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LName">Last Name</label>
+        <input asp-for="LName" class="form-control"
+               required
+               maxlength="50"
+               title="Last Name is required and must be less than 50 characters." />
+        <span asp-validation-for="LName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNum">Phone Number</label>
+        <input asp-for="PhoneNum" class="form-control"
+               required
+               pattern="\d{10}"
+               title="Phone Number must be exactly 10 digits." />
+        <span asp-validation-for="PhoneNum" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

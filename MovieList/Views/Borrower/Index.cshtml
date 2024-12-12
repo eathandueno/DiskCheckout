@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MovieList.Models.Borrower>
+
+<h3>Borrower List</h3>
+<div class="mb-4">
+    <a asp-action="Create" class="btn btn-primary">Add New Borrower</a>
+</div>
+
+<form asp-action="DeleteMultipleBorrowers" asp-controller="Borrower" method="post">
+    <button type="submit" class="btn btn-danger mt-2">Delete Selected</button>
+    @Html.AntiForgeryToken()
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Borrower ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var borrower in Model)
+            {
+            <tr>
+                <td>
+                    <input type="checkbox" name="selectedBorrowerIds" value="@borrower.BorrowerId" />
+                </td>
+                <td>@borrower.BorrowerId</td>
+                <td>@borrower.FName</td>
+                <td>@borrower.LName</td>
+                <td>@borrower.PhoneNum</td>
+                <td>
+                    <a asp-controller="Disk" asp-action="AssignDisk" asp-route-id="@borrower.BorrowerId" class="btn btn-primary">Borrow</a>
+                    <a asp-controller="Borrower" asp-action="Details" asp-route-id="@borrower.BorrowerId" class="btn btn-info">View</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</form>

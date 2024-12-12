@@ -1,0 +1,29 @@
+﻿<h2>Disk List</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Release Date</th>
+            <th>Genre</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var disk in Model)
+        {
+            <tr>
+                <td>@disk.DiskName</td>
+                <td>@disk.ReleaseDate.ToString("yyyy-MM-dd")</td>
+                <td>@disk.Genre?.Description</td>
+                <td>@disk.Status?.Description</td> <!-- Display Status.Description -->
+                <td>
+                    <a asp-controller="Disk" asp-action="Edit" asp-route-id="@disk.DiskId" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-controller="Disk" asp-action="Details" asp-route-id="@disk.DiskId" class="btn btn-info btn-sm">Details</a>
+                    <a asp-controller="Disk" asp-action="Delete" asp-route-id="@disk.DiskId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

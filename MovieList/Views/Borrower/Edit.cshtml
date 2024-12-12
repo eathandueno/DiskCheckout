@@ -1,0 +1,30 @@
+@model Borrower
+
+@{
+    ViewBag.Title = "Edit Borrower";
+}
+
+<h2>Edit Borrower</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="BorrowerId" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="FName">First Name</label>
+        <input asp-for="FName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LName">Last Name</label>
+        <input asp-for="LName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNum">Phone Number</label>
+        <input asp-for="PhoneNum" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
